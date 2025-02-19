@@ -19,3 +19,21 @@ document.getElementById("installPWA").addEventListener("click", () => {
         });
     }
 });
+
+function checkPWAInstallation() {
+  const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
+  const installButton = document.getElementById("installPWA");
+
+  if (installButton) {
+    if (isStandalone) {
+      console.log("✅ PWA가 설치된 상태입니다.");
+      installButton.style.display = "none";  
+    } else {
+      console.log("❌ PWA가 설치되지 않은 상태입니다.");
+      installButton.style.display = "block"; 
+    }
+  }
+}
+
+ 
+window.addEventListener("load", checkPWAInstallation);
