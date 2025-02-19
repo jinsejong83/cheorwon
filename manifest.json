@@ -28,7 +28,7 @@
         },
         {
             "src": "screenshot-2.png",
-            "sizes": "1920x1080",
+            "sizes": "1080x1920",
             "type": "image/png",
             "form_factor": "wide"
         }
