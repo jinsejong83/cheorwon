@@ -1,21 +1,12 @@
-self.addEventListener('install', (event) => {
-    event.waitUntil(
-        caches.open('pwa-cache').then((cache) => {
-            return cache.addAll([
-                'index.html',
-                'styles.css',
-                'script.js',
-                'members.json',
-                'manifest.json'
-            ]);
-        })
-    );
+self.addEventListener("install", (event) => {
+  console.log("📲 Service Worker 설치 완료!");
+  self.skipWaiting();
 });
 
-self.addEventListener('fetch', (event) => {
-    event.respondWith(
-        caches.match(event.request).then((response) => {
-            return response || fetch(event.request);
-        })
-    );
+self.addEventListener("activate", (event) => {
+  console.log("✅ Service Worker 활성화됨!");
+});
+
+self.addEventListener("fetch", (event) => {
+  event.respondWith(fetch(event.request));
 });
