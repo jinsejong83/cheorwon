@@ -1,40 +1,24 @@
 body {
     font-family: Arial, sans-serif;
+    text-align: center;
     margin: 0;
     padding: 0;
-    text-align: center;
 }
 
 header {
-    background: #4CAF50;
+    background-color: #4CAF50;
     color: white;
-    padding: 10px;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    background: #ddd;
-}
-
-nav ul li {
-    display: inline;
-    padding: 10px;
-}
-
-#members {
     padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
-.member-card {
-    background: #f4f4f4;
-    padding: 10px;
-    margin: 10px auto;
-    width: 80%;
-    border-radius: 5px;
+#board {
+    margin: 20px;
 }
+
 #installPWA {
-    display: block !important;  
+    display: block;  
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -50,6 +34,6 @@ nav ul li {
 
 @media screen and (max-width: 768px) {
     #installPWA {
-        display: block !important; 
+        display: block !important;
     }
 }
