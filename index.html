@@ -1,41 +1,31 @@
 <!DOCTYPE html>
 <html lang="ko">
-<button id="installPWA" style="display: none; padding: 10px 20px; font-size: 18px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
-    📲 바탕/홈에 바로가기
-</button>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>철원농생명산업진흥협회</title>
-    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <h1>철원농생명산업진흥협회</h1>
-        <p>회원사 정보를 한눈에!</p>
-    </header>
-    
-    <nav>
-        <ul>
-            <li><a href="#">홈</a></li>
-            <li><a href="#">회원사 소개</a></li>
-            <li><a href="#">공지사항</a></li>
-            <li><a href="#">문의하기</a></li>
-        </ul>
-    </nav>
-
-    <section id="members">
-        <h2>회원사 목록</h2>
-        <div id="member-list"></div>
-    </section>
-
-    <script src="script.js"></script>
+    <link rel="manifest" href="manifest.json">
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('service-worker.js')
             .then(() => console.log("Service Worker Registered"));
         }
     </script>
+</head>
+<body>
+    <header>
+        <h1>철원농생명산업진흥협회</h1>
+    </header>
+
+    <main>
+        <p>철원 지역의 농생명 산업 발전을 위한 플랫폼입니다.</p>
+
+        <button id="installPWA" style="display: none; padding: 10px 20px; font-size: 18px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            📲 바탕/홈에 바로가기
+        </button>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
