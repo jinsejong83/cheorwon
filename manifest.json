@@ -1,10 +1,12 @@
 {
     "name": "철원농생명산업진흥협회",
     "short_name": "철원농생명",
-    "start_url": "index.html",
+    "start_url": "/cheorwon/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#4CAF50",
+    "scope": "/cheorwon/",
+    "id": "/cheorwon/index.html",
     "icons": [
         {
             "src": "icon-192x192.png",
@@ -21,8 +23,7 @@
         {
             "src": "screenshot-1.png",
             "sizes": "1080x1920",
-            "type": "image/png",
-            "form_factor": "wide"
+            "type": "image/png"
         }
     ]
 }
