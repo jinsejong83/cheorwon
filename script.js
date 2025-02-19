@@ -3,7 +3,7 @@ let deferredPrompt;
 window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
     deferredPrompt = event;
-    document.getElementById("installPWA").style.display = "block";  
+    document.getElementById("installPWA").style.display = "block";
 });
 
 document.getElementById("installPWA").addEventListener("click", () => {
