@@ -1,7 +1,7 @@
 {
     "name": "철원농생명산업진흥협회",
     "short_name": "철원농생명",
-    "start_url": "https://jinsejong83.github.io/cheorwon/index.html",
+    "start_url": "https://jinsejong83.github.io/cheorwon/",
     "display": "standalone",
     "display_override": ["standalone", "fullscreen"],
     "background_color": "#ffffff",
