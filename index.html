@@ -12,21 +12,34 @@
     </header>
 
     <main>
-        <h1>협회소개</h1>
         <p>철원에 기반을 둔 농기업들이 상생과 협력을 통해 철원의 새로운 미래를 만들어 갑니다!</p>
-     </main>
+
+        <nav>
+            <ul>
+                <li><a href="notice.html">공지사항</a></li>
+                <li><a href="about.html">협회소개</a></li>
+                <li><a href="members.html">회원사소개</a></li>
+                <li><a href="articles.html">기고</a></li>
+                <li><a href="participation.html">참여도</a></li>
+                <li><a href="feedback.html">건의사항</a></li>
+            </ul>
+        </nav>
+
+        <section id="notice">
+            <h2>공지사항</h2>
+            <p id="noticeContent">loading...</p>
+        </section>
+    </main>
 
     <footer>
         <p>© 2024 철원농생명산업진흥협회</p>
     </footer>
 
-     <script src="script.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+      import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
-     <script type="module" defer>
-       import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-      import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics.js";
-
-       const firebaseConfig = {
+      const firebaseConfig = {
         apiKey: "AIzaSyCfOkzAAvmSqFnnx_RdB-_r0Bt7QBVsdYY",
         authDomain: "cheorwon-9da5d.firebaseapp.com",
         projectId: "cheorwon-9da5d",
@@ -36,8 +49,20 @@
         measurementId: "G-3RNSTVNBD1"
       };
 
-       const app = initializeApp(firebaseConfig);
-      const analytics = getAnalytics(app);
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      async function getNotice() {
+        const querySnapshot = await getDocs(collection(db, "공지사항"));
+        querySnapshot.forEach((doc) => {
+          const noticeContent = doc.data().content;
+          document.getElementById("noticeContent").innerText = noticeContent;
+        });
+      }
+
+      getNotice();
     </script>
+
+    <script src="script.js"></script>
 </body>
 </html>
