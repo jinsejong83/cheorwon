@@ -65,12 +65,12 @@ button:hover {
 
 @media (max-width: 768px) {
     #logo {
-        width: 80%; 
+        width: 95%; 
     }
 }
 
 @media (max-width: 480px) {
     #logo {
-        width: 60%; 
+        width: 90%; 
     }
 }
