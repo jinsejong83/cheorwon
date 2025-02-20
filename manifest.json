@@ -3,7 +3,7 @@
     "short_name": "철원농생명",
     "start_url": "https://jinsejong83.github.io/cheorwon/",
     "display": "standalone",
-    "display_override": ["standalone", "fullscreen"],
+    "display_override": ["standalone"],
     "background_color": "#ffffff",
     "theme_color": "#4CAF50",
     "scope": "https://jinsejong83.github.io/cheorwon/",
