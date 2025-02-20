@@ -1,19 +1,19 @@
-function isRunningStandalone() {
-  return window.matchMedia("(display-mode: standalone)").matches;
-}
+let deferredPrompt;
+const installPWAButton = document.getElementById('installPWA');
 
-function checkPWAInstallation() {
-  const installButton = document.getElementById("installPWA");
+ window.addEventListener('beforeinstallprompt', (event) => {
+     event.preventDefault();
+    deferredPrompt = event;
+    
+     installPWAButton.style.display = 'block';
 
-  if (installButton) {
-    if (isRunningStandalone()) {
-      console.log("✅ PWA 내부에서 실행 중! 버튼 숨김.");
-      installButton.style.display = "none";   
-    } else {
-      console.log("❌ PWA가 설치되지 않음! 버튼 표시.");
-      installButton.style.display = "block";  
-    }
-  }
-}
-
-window.addEventListener("load", checkPWAInstallation);
+     installPWAButton.addEventListener('click', () => {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice
+            .then((choiceResult) => {
+                console.log(choiceResult.outcome);
+                 installPWAButton.style.display = 'none';
+                deferredPrompt = null;
+            });
+    });
+});
