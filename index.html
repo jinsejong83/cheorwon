@@ -45,7 +45,7 @@
     #slider-container {
       width: 100%;
       max-width: 1200px;
-      height: auto;
+      min-height: 400px;
       margin: 0 auto;
       position: relative;
       overflow: hidden;
@@ -57,12 +57,13 @@
       transition: opacity 1s ease-in-out;
       position: relative;
       width: 100%;
+      height: 100%;
     }
 
     .slide {
       position: absolute;
       width: 100%;
-      height: auto;
+      height: 100%;
       opacity: 0;
       transition: opacity 1s ease-in-out;
     }
@@ -73,8 +74,8 @@
 
     .slide img {
       width: 100%;
-      height: auto;
-      object-fit: contain;
+      height: 100%;
+      object-fit: cover;
     }
 
     .slide-text {
@@ -125,7 +126,7 @@
 
     @media (max-width: 768px) {
       .category-box {
-        width: 30%;
+        width: 32%;
         height: 40px;
       }
     }
@@ -157,6 +158,16 @@
             <div class="slide-text">유관기관 사업설명회</div>
           </div>
         </div>
+      </section>
+
+      <section id="categories">
+        <div class="category-box" onclick="location.href='introduce.html'"><h3>협회소개</h3></div>
+        <div class="category-box" onclick="location.href='members.html'"><h3>회원사소개</h3></div>
+        <div class="category-box" onclick="location.href='participation.html'"><h3>참여도</h3></div>
+        <div class="category-box" onclick="location.href='notices.html'"><h3>공지사항</h3></div>
+        <div class="category-box" onclick="location.href='feedback.html'"><h3>건의사항</h3></div>
+        <div class="category-box" onclick="location.href='photo.html'"><h3>PHOTO</h3></div>
+        <div class="category-box" onclick="location.href='contributions.html'"><h3>기고</h3></div>
       </section>
     </main>
   </div>
