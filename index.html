@@ -54,7 +54,7 @@
 
     #slider {
       display: flex;
-      transition: transform 0.5s ease-in-out;
+      transition: transform 1s ease-in-out; /* 부드러운 전환 */
       width: 300%;
     }
 
@@ -66,9 +66,9 @@
 
     .slide img {
       width: 100%;
-      height: auto;
-      max-height: 200px; /* 최대 높이 제한 */
-      object-fit: contain; /* 이미지 비율 유지 */
+      height: auto; /* 비율 유지 */
+      object-fit: contain; /* 이미지가 가로 폭에 맞게 표시 */
+      display: block; /* 안 보이는 문제 해결 */
     }
 
     .slide-text {
@@ -119,18 +119,6 @@
       background-color: #f1f1f1;
     }
 
-    @media (max-width: 768px) {
-      .category-box {
-        width: 33.2%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .category-box {
-        width: 33.2%;
-      }
-    }
-
     footer {
       background-color: #f8f8f8;
       padding: 15px;
@@ -154,15 +142,15 @@
     <section id="slider-container">
       <div id="slider">
         <div class="slide">
-          <img src="CW241203.jpg" alt="철원농생명산업진흥협회 창립총회">
+          <img src="CW241203_optimized.jpg" alt="철원농생명산업진흥협회 창립총회">
           <div class="slide-text">철원농생명산업진흥협회 창립총회</div>
         </div>
         <div class="slide">
-          <img src="CW250115.jpg" alt="제1회 철원농생명산업진흥협회 정기총회">
+          <img src="CW250115_optimized.jpg" alt="제1회 철원농생명산업진흥협회 정기총회">
           <div class="slide-text">제1회 철원농생명산업진흥협회 정기총회</div>
         </div>
         <div class="slide">
-          <img src="CW250211.jpg" alt="회의 및 발표 진행">
+          <img src="CW250211_optimized.jpg" alt="회의 및 발표 진행">
           <div class="slide-text">회의 및 발표 진행</div>
         </div>
       </div>
