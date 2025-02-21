@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>전체 회원사 상세정보 | 철원농생명산업진흥협회</title>
+
+  <!-- Firebase SDK 추가 -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js";
+
+    // Firebase 설정
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Firebase 초기화
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Firestore에서 전체 회원사 정보 가져오기
+    async function loadAllMembers() {
+      const container = document.getElementById("members-list");
+      container.innerHTML = "";  // 기존 데이터 초기화
+
+      const querySnapshot = await getDocs(collection(db, "members"));
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const memberDetail = `
+          <div class="member">
+            <h3>${data.companyName}</h3>
+            <p><strong>대표자:</strong> ${data.ceo}</p>
+            <p><strong>주요 사업:</strong> ${data.business}</p>
+            <p><strong>연락처:</strong> ${data.contact}</p>
+            <p><strong>이메일:</strong> ${data.email}</p>
+            <p><strong>홈페이지:</strong> <a href="${data.website}" target="_blank">${data.website}</a></p>
+            <h4>제품 정보</h4>
+            <div class="products">
+              ${data.products.map(product => `
+                <div class="product-card">
+                  <img src="${product.image}" alt="${product.name}">
+                  <h4>${product.name}</h4>
+                  <p>${product.description}</p>
+                  <p>가격: ${product.price}원</p>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+        container.innerHTML += memberDetail;
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", loadAllMembers);
+  </script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #e0f7fa;
+      text-align: center;
+    }
+
+    header {
+      background-color: #ffffff;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    header img {
+      max-width: 90%;
+      height: auto;
+      object-fit: contain;
+      margin: 5px auto;
+      display: block;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+
+    h2 {
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 5px;
+      font-size: 1.5rem;
+      color: #007bff;
+    }
+
+    .member {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .product-card {
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #fff;
+      width: 220px;
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    footer {
+      background-color: #f8f8f8;
+      padding: 15px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo.png" alt="철원농생명산업진흥협회 로고" onclick="location.href='index.html'">
+    <p>
+      철원에 기반을 둔 농기업들이 상생과 협력을 통해<br>
+      철원의 새로운 미래를 만들어 갑니다!
+    </p>
+  </header>
+
+  <main>
+    <h2>전체 회원사 상세정보</h2>
+    <div id="members-list">
+      <!-- Firestore에서 불러온 데이터가 여기에 표시됨 -->
+    </div>
+  </main>
+
+  <footer>
+    고유번호: 851-82-00608 | 연락처: 033-455-1140 |
+    강원특별자치도 철원군 철원읍 금강산로 23 |
+    대표자 박상운 | 이메일: navy4117@naver.com<br>
+    © 2025 사단법인철원농생명산업진흥협회. 
+    All rights reserved.(Planning and development by Mr. Jin)
+  </footer>
+
+</body>
+</html>
