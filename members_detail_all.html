@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>건의사항 | 철원농생명산업진흥협회</title>
+  <title>전체 회원사 상세정보 | 철원농생명산업진흥협회</title>
 
+  <!-- Firebase SDK 추가 -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, addDoc, updateDoc, doc, orderBy, limit, startAfter, startAt, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js";
 
+    // Firebase 설정
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_AUTH_DOMAIN",
@@ -19,68 +20,44 @@
       appId: "YOUR_APP_ID"
     };
 
+    // Firebase 초기화
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    const auth = getAuth(app);
 
-    let lastVisible = null;
-    let firstVisible = null;
-    let pageSize = 10;
-    let prevStack = [];
+    // Firestore에서 전체 회원사 정보 가져오기
+    async function loadAllMembers() {
+      const container = document.getElementById("members-list");
+      container.innerHTML = "";  // 기존 데이터 초기화
 
-    async function loadFeedbacks(next = false, prev = false) {
-      const feedbackContainer = document.getElementById("feedback-list");
-      feedbackContainer.innerHTML = "";
-
-      let q;
-      if (next && lastVisible) {
-        prevStack.push(firstVisible);
-        q = query(collection(db, "feedback"), orderBy("timestamp", "desc"), startAfter(lastVisible), limit(pageSize));
-      } else if (prev && prevStack.length > 0) {
-        const prevDoc = prevStack.pop();
-        q = query(collection(db, "feedback"), orderBy("timestamp", "desc"), startAt(prevDoc), limit(pageSize));
-      } else {
-        q = query(collection(db, "feedback"), orderBy("timestamp", "desc"), limit(pageSize));
-      }
-
-      const querySnapshot = await getDocs(q);
-      if (!querySnapshot.empty) {
-        firstVisible = querySnapshot.docs[0];
-        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-      }
-      
+      const querySnapshot = await getDocs(collection(db, "members"));
       querySnapshot.forEach((doc) => {
         const data = doc.data();
-        const feedbackItem = `
-          <div class="feedback">
-            <h3>익명</h3>
-            <p>${data.content}</p>
-            <p class="status">처리 상태: ${data.status}</p>
+        const memberDetail = `
+          <div class="member">
+            <h3>${data.companyName}</h3>
+            <p><strong>대표자:</strong> ${data.ceo}</p>
+            <p><strong>주요 사업:</strong> ${data.business}</p>
+            <p><strong>연락처:</strong> ${data.contact}</p>
+            <p><strong>이메일:</strong> ${data.email}</p>
+            <p><strong>홈페이지:</strong> <a href="${data.website}" target="_blank">${data.website}</a></p>
+            <h4>제품 정보</h4>
+            <div class="products">
+              ${data.products.map(product => `
+                <div class="product-card">
+                  <img src="${product.image}" alt="${product.name}">
+                  <h4>${product.name}</h4>
+                  <p>${product.description}</p>
+                  <p>가격: ${product.price}원</p>
+                </div>
+              `).join("")}
+            </div>
           </div>
         `;
-        feedbackContainer.innerHTML += feedbackItem;
+        container.innerHTML += memberDetail;
       });
     }
 
-    async function submitFeedback(event) {
-      event.preventDefault();
-      const content = document.getElementById("feedback-content").value;
-
-      if (!content) {
-        alert("내용을 입력하세요.");
-        return;
-      }
-
-      await addDoc(collection(db, "feedback"), {
-        content: content,
-        status: "미처리",
-        timestamp: serverTimestamp()
-      });
-
-      alert("건의사항이 등록되었습니다.");
-      document.getElementById("feedback-form").reset();
-      loadFeedbacks();
-    }
+    document.addEventListener("DOMContentLoaded", loadAllMembers);
   </script>
 
   <style>
@@ -108,16 +85,7 @@
     }
 
     header p {
-  font-size: 1.2rem;
-  line-height: 1.4;
-}
-
-@media (max-width: 768px) {
-  header p {
-    font-size: 1.1rem;
-    line-height: 1.2;
-  }
-}
+      font-size: 1.2rem;
       margin: 0;
       text-align: center;
       word-break: break-word;
@@ -125,9 +93,71 @@
       padding: 0;
       line-height: 1.4;
     }
+
+    @media (max-width: 768px) {
+      header p {
+        font-size: 1.1rem;
+        line-height: 1.2;
+      }
+    }
+
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+
+    h2 {
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 5px;
+      font-size: 1.5rem;
+      color: #007bff;
+    }
+
+    .member {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .product-card {
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #fff;
+      width: 220px;
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    footer {
+      background-color: #f8f8f8;
+      padding: 15px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+    }
   </style>
 </head>
 <body>
+
   <header>
     <img src="logo.png" alt="철원농생명산업진흥협회 로고" onclick="location.href='index.html'">
     <p>
@@ -137,14 +167,19 @@
   </header>
 
   <main>
-    <h2>건의사항 목록</h2>
-    <div id="feedback-list"></div>
-
-    <h2>건의사항 작성</h2>
-    <form id="feedback-form">
-      <textarea id="feedback-content" placeholder="건의사항을 입력하세요" required></textarea>
-      <button type="submit" onclick="submitFeedback(event)">등록</button>
-    </form>
+    <h2>전체 회원사 상세정보</h2>
+    <div id="members-list">
+      <!-- Firestore에서 불러온 데이터가 여기에 표시됨 -->
+    </div>
   </main>
+
+  <footer>
+    고유번호: 851-82-00608 | 연락처: 033-455-1140 |
+    강원특별자치도 철원군 철원읍 금강산로 23 |
+    대표자 박상운 | 이메일: navy4117@naver.com<br>
+    © 2025 사단법인철원농생명산업진흥협회. 
+    All rights reserved.(Planning and development by Mr. Jin)
+  </footer>
+
 </body>
 </html>
