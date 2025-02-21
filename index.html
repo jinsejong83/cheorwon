@@ -154,4 +154,28 @@
       <div class="category-box" onclick="location.href='notices.html'"><h3>공지사항</h3></div>
       <div class="category-box" onclick="location.href='contributions.html'"><h3>기고</h3></div>
       <div class="category-box" onclick="location.href='participation.html'"><h3>참여도</h3></div>
-      <div class="category-box" onclick="location.href='feed
+      <div class="category-box" onclick="location.href='feedback.html'"><h3>건의사항</h3></div>
+    </section>
+  </main>
+
+  <script>
+    let currentIndex = 0;
+    const slides = document.querySelectorAll('#slider img');
+    
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        if (i === index) slide.classList.add('active');
+      });
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    }
+
+    setInterval(nextSlide, 3000);
+  </script>
+
+</body>
+</html>
