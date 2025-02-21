@@ -5,10 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>철원농생명산업진흥협회</title>
   
-   <script type="module">
-     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+  <!-- Firebase Initialization -->
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics.js";
-     const firebaseConfig = {
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
       apiKey: "AIzaSyCxCLhm-30UJODruR0Y-SVJtOKNliMGGM4",
       authDomain: "cw-1-83597.firebaseapp.com",
       projectId: "cw-1-83597",
@@ -18,24 +21,40 @@
       measurementId: "G-MQ220EFXEJ"
     };
 
-     const app = initializeApp(firebaseConfig);
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
   </script>
   
   <style>
-     body {
+    /* 기본 스타일 */
+    body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       background-color: #f4f4f4;
     }
+
+    /* 로고 및 협회 소개문구 고정 */
     header {
       background-color: #ffffff;
       padding: 20px;
       text-align: center;
     }
 
-     #slider {
+    header img {
+      max-width: 100%;  /* 화면 폭에 맞게 로고 사이즈 조정 */
+      height: auto;  /* 높이는 자동으로 조정 */
+      object-fit: contain;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    /* 슬라이드 이미지 스타일 (반응형) */
+    #slider {
       width: 100%;
       max-height: 400px;
       margin: 20px auto;
@@ -43,8 +62,8 @@
       overflow: hidden;
     }
     #slider img {
-      width: 100%;   
-      height: auto;  
+      width: 100%;  /* 화면 너비에 맞춰 자동으로 조정 */
+      height: auto;  /* 높이는 자동 조정 */
       object-fit: cover;
       display: none;
     }
@@ -52,9 +71,10 @@
       display: block;
     }
 
-     .category-box {
+    /* 카테고리 박스 스타일 */
+    .category-box {
       display: inline-block;
-      width: 30%;
+      width: 30%; /* 한 줄에 3개씩 표시되도록 설정 */
       padding: 20px;
       margin: 10px;
       background-color: #ffffff;
@@ -67,40 +87,46 @@
       background-color: #f1f1f1;
     }
 
-     @media (max-width: 768px) {
+    /* 모바일 반응형 스타일 */
+    @media (max-width: 768px) {
       .category-box {
-        width: 48%; 
+        width: 30%; /* 768px 이상에서는 한 줄에 3개 */
       }
     }
 
     @media (max-width: 480px) {
       header h1 {
-        font-size: 1.5rem;  
+        font-size: 1.5rem; /* 작은 화면에서는 글자 크기 조정 */
       }
       #slider {
-        max-height: 300px; 
+        max-height: 300px; /* 작은 화면에서 슬라이드 크기 줄이기 */
       }
       .category-box {
-        width: 100%;  
+        width: 100%; /* 모바일에서는 카테고리 박스를 하나씩 세로로 배치 */
       }
     }
   </style>
 </head>
 <body>
 
-   <header>
-    <h1>철원농생명산업진흥협회</h1>
+  <!-- Header Section -->
+  <header>
+    <!-- 로고 이미지 (로고 파일 경로 변경 필요) -->
+    <img src="logo.png" alt="철원농생명산업진흥협회 로고">
     <p>철원에 기반을 둔 농기업들이 상생과 협력을 통해 철원의 새로운 미래를 만들어 갑니다!</p>
   </header>
 
-   <main>
-     <section id="slider">
+  <!-- Main Section -->
+  <main>
+    <!-- 슬라이드쇼 -->
+    <section id="slider">
       <img src="image1.jpg" class="active" alt="활동 사진 1">
       <img src="image2.jpg" alt="활동 사진 2">
       <img src="image3.jpg" alt="활동 사진 3">
     </section>
 
-     <section id="categories">
+    <!-- 카테고리 링크 박스 -->
+    <section id="categories">
       <div class="category-box" onclick="location.href='introduce.html'">협회소개</div>
       <div class="category-box" onclick="location.href='members.html'">회원사소개</div>
       <div class="category-box" onclick="location.href='photo.html'">PHOTO</div>
@@ -127,7 +153,7 @@
       showSlide(currentIndex);
     }
 
-    setInterval(nextSlide, 3000);  
+    setInterval(nextSlide, 3000); // 슬라이드 자동 전환 (3초마다)
   </script>
 
 </body>
