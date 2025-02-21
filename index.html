@@ -5,24 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>철원농생명산업진흥협회</title>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCxCLhm-30UJODruR0Y-SVJtOKNliMGGM4",
-      authDomain: "cw-1-83597.firebaseapp.com",
-      projectId: "cw-1-83597",
-      storageBucket: "cw-1-83597.firebasestorage.app",
-      messagingSenderId: "189389095242",
-      appId: "1:189389095242:web:fd175950c47be98c8181b3",
-      measurementId: "G-MQ220EFXEJ"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-  </script>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -52,81 +34,53 @@
       word-break: break-word;
       white-space: normal;
       padding: 0;
-      line-height: 1.4; /* 기본 줄 간격 조정 */
+      line-height: 1.4;
     }
 
     @media (max-width: 768px) {
       header p {
         font-size: 1.1rem;
-        line-height: 1.2; /* 모바일에서 자연스러운 줄 간격 */
-        display: block; /* 직접 줄바꿈 적용 */
+        line-height: 1.2;
+        display: block;
       }
+    }
+
+    #slider-container {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
     }
 
     #slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 300%;
+    }
+
+    .slide {
       width: 100%;
-      text-align: center;
-      overflow: hidden;
+      flex-shrink: 0;
       position: relative;
     }
 
-    #slider img {
+    .slide img {
       width: 100%;
       max-height: 300px;
       object-fit: cover;
-      display: none;
     }
 
-    #slider img.active {
-      display: block;
-    }
-
-    #categories {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-
-    .category-box {
-      width: 33.3%;
-      height: 50px;
-      background-color: #ffffff;
-      border: 1px solid #ddd;
-      font-size: 1rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
-      margin-bottom: 5px; /* 줄 사이 간격 최소화 */
-    }
-
-    .category-box h3 {
-      margin: 0;
-      font-size: 1rem;
+    .slide-text {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 10px;
+      font-size: 1.2rem;
       text-align: center;
-    }
-
-    .category-box.small {
-      font-size: 0.8rem; /* 작은 글씨 */
-    }
-
-    .category-box:hover {
-      background-color: #f1f1f1;
-    }
-
-    @media (max-width: 768px) {
-      .category-box {
-        width: 33.3%;
-        height: 45px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .category-box {
-        width: 33.3%;
-        height: 45px;
-      }
+      border-radius: 5px;
     }
   </style>
 </head>
@@ -141,42 +95,34 @@
   </header>
 
   <main>
-    <section id="slider">
-      <img src="image1.jpg" class="active" alt="활동 사진 1">
-      <img src="image2.jpg" alt="활동 사진 2">
-      <img src="image3.jpg" alt="활동 사진 3">
-    </section>
-
-    <section id="categories">
-      <div class="category-box" onclick="location.href='introduce.html'"><h3>협회소개</h3></div>
-      <div class="category-box" onclick="location.href='members.html'"><h3>회원사소개</h3></div>
-      <div class="category-box" onclick="location.href='photo.html'"><h3>PHOTO</h3></div>
-      <div class="category-box" onclick="location.href='notices.html'"><h3>공지사항</h3></div>
-      <div class="category-box" onclick="location.href='contributions.html'"><h3>기고</h3></div>
-      <div class="category-box" onclick="location.href='participation.html'"><h3>참여도</h3></div>
-      <div class="category-box" onclick="location.href='feedback.html'"><h3>건의사항</h3></div>
-      <div class="category-box small" onclick="location.href='ai_support.html'"><h3>인공지능 지원 (SOON)</h3></div>
-      <div class="category-box small" onclick="location.href='market_research.html'"><h3>시장조사 (SOON)</h3></div>
+    <section id="slider-container">
+      <div id="slider">
+        <div class="slide">
+          <img src="CW241203.jpg" alt="철원농생명산업진흥협회 창립총회">
+          <div class="slide-text">철원농생명산업진흥협회 창립총회</div>
+        </div>
+        <div class="slide">
+          <img src="CW250115.jpg" alt="제1회 철원농생명산업진흥협회 정기총회">
+          <div class="slide-text">제1회 철원농생명산업진흥협회 정기총회</div>
+        </div>
+        <div class="slide">
+          <img src="CW250211.jpg" alt="강원도 유관기관 사업설명회">
+          <div class="slide-text">강원도 유관기관 사업설명회</div>
+        </div>
+      </div>
     </section>
   </main>
 
   <script>
     let currentIndex = 0;
-    const slides = document.querySelectorAll('#slider img');
-
-    function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.remove('active');
-        if (i === index) slide.classList.add('active');
-      });
-    }
+    const slider = document.getElementById("slider");
 
     function nextSlide() {
-      currentIndex = (currentIndex + 1) % slides.length;
-      showSlide(currentIndex);
+      currentIndex = (currentIndex + 1) % 3;
+      slider.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
 
-    setInterval(nextSlide, 3000); // 3초 간격으로 롤링
+    setInterval(nextSlide, 3000);
   </script>
 
 </body>
