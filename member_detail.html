@@ -24,7 +24,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // URL에서 회원사 ID 가져오기
+    // URL에서 company_id 가져오기
     function getQueryParam(param) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(param);
@@ -34,7 +34,8 @@
     async function loadMemberDetail() {
       const companyId = getQueryParam("company_id");
       if (!companyId) {
-        document.getElementById("member-detail").innerHTML = "<p>잘못된 접근입니다.</p>";
+        alert("잘못된 접근입니다. 회원사 목록 페이지로 이동합니다.");
+        window.location.href = "members.html";  // 회원사 목록으로 리디렉션
         return;
       }
 
@@ -95,24 +96,6 @@
       cursor: pointer;
     }
 
-    header p {
-      font-size: 1.2rem;
-      margin: 0;
-      text-align: center;
-      word-break: break-word;
-      white-space: normal;
-      padding: 0;
-      line-height: 1.4;
-    }
-
-    @media (max-width: 768px) {
-      header p {
-        font-size: 1.1rem;
-        line-height: 1.2;
-        display: block;
-      }
-    }
-
     main {
       max-width: 900px;
       margin: 20px auto;
@@ -121,10 +104,6 @@
       border-radius: 8px;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
       text-align: left;
-    }
-
-    section {
-      margin-bottom: 30px;
     }
 
     h2 {
