@@ -21,7 +21,6 @@
       appId: "YOUR_APP_ID"
     };
 
-    // Firebase 초기화
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
@@ -30,74 +29,6 @@
     let firstVisible = null;
     let pageSize = 10;
     let prevStack = [];
-
-    // Firestore에서 건의사항 불러오기 (페이지네이션 포함)
-    async function loadFeedbacks(next = false, prev = false) {
-      const feedbackContainer = document.getElementById("feedback-list");
-      feedbackContainer.innerHTML = "";
-
-      let q;
-      if (next && lastVisible) {
-        prevStack.push(firstVisible);
-        q = query(collection(db, "feedback"), orderBy("timestamp", "desc"), startAfter(lastVisible), limit(pageSize));
-      } else if (prev && prevStack.length > 0) {
-        const prevDoc = prevStack.pop();
-        q = query(collection(db, "feedback"), orderBy("timestamp", "desc"), startAt(prevDoc), limit(pageSize));
-      } else {
-        q = query(collection(db, "feedback"), orderBy("timestamp", "desc"), limit(pageSize));
-      }
-
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        firstVisible = querySnapshot.docs[0];
-        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-      }
-
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const feedbackItem = `
-          <div class="feedback">
-            <h3>익명</h3>
-            <p>${data.content}</p>
-            <p class="status">처리 상태: ${data.status}</p>
-            ${isAdmin ? `<button onclick="updateStatus('${doc.id}', '처리 중')">처리 중</button>
-                         <button onclick="updateStatus('${doc.id}', '완료')">완료</button>` : ""}
-          </div>
-        `;
-        feedbackContainer.innerHTML += feedbackItem;
-      });
-    }
-
-    async function submitFeedback(event) {
-      event.preventDefault();
-      const content = document.getElementById("feedback-content").value;
-
-      if (!content) {
-        alert("내용을 입력하세요.");
-        return;
-      }
-
-      await addDoc(collection(db, "feedback"), {
-        content: content,
-        status: "미처리",
-        timestamp: serverTimestamp()
-      });
-
-      alert("건의사항이 등록되었습니다.");
-      document.getElementById("feedback-form").reset();
-      loadFeedbacks();
-    }
-
-    async function updateStatus(feedbackId, status) {
-      if (!isAdmin) return;
-
-      const feedbackRef = doc(db, "feedback", feedbackId);
-      await updateDoc(feedbackRef, { status });
-
-      alert("처리 상태가 업데이트되었습니다.");
-      loadFeedbacks();
-    }
 
     document.addEventListener("DOMContentLoaded", () => {
       loadFeedbacks();
@@ -117,37 +48,34 @@
 
     header {
       background-color: #ffffff;
-      padding: 10px 0;
+      padding: 10px 0 15px; /* 배경 크기 기존과 동일하게 조정 */
       text-align: center;
     }
 
     header img {
-      max-width: 100%;
+      max-width: 90%; /* 기존 4개 페이지와 동일하게 수정 */
       height: auto;
       object-fit: contain;
+      margin: 5px auto; /* 기존 스타일과 동일하게 수정 */
       display: block;
-      margin: 0 auto;
       cursor: pointer;
     }
 
     header p {
-      font-size: 1.2rem;
-      margin-top: 10px;
+      font-size: 1.3rem; /* 기존 4개 페이지와 동일하게 수정 */
+      margin: 0;
       text-align: center;
-      line-height: 1.4;
       word-break: break-word;
       white-space: normal;
-      padding: 5px 0;
+      padding: 0;
+      line-height: 1.4;
     }
 
     @media (max-width: 768px) {
-      header img {
-        max-width: 80%;
-      }
-
       header p {
         font-size: 1.1rem;
-        line-height: 1.3;
+        line-height: 1.2;
+        display: block;
       }
     }
 
@@ -196,6 +124,14 @@
     button:hover {
       background-color: #0056b3;
     }
+
+    footer {
+      background-color: #f8f8f8;
+      padding: 15px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+    }
   </style>
 </head>
 <body>
@@ -221,6 +157,14 @@
       <button type="submit" onclick="submitFeedback(event)">등록</button>
     </form>
   </main>
+
+  <footer>
+    고유번호: 851-82-00608 | 연락처: 033-455-1140 |
+    강원특별자치도 철원군 철원읍 금강산로 23 |
+    대표자 박상운 | 이메일: navy4117@naver.com<br>
+    © 2025 사단법인철원농생명산업진흥협회. 
+    All rights reserved.(Planning and development by Mr. Jin)
+  </footer>
 
 </body>
 </html>
