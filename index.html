@@ -75,10 +75,11 @@
     .slide img {
       width: 100%;
       height: auto;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .slide-text {
+      display: block; /* 항상 보이도록 설정 */
       position: absolute;
       bottom: 10%;
       left: 50%;
@@ -98,6 +99,7 @@
     }
 
     #categories {
+      justify-content: space-between;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
