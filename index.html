@@ -66,7 +66,9 @@
 
     .slide img {
       width: 100%;
-      height: auto; /* 비율 유지 */
+      height: auto;
+      max-height: 200px; /* 최대 높이 제한 */
+      object-fit: contain; /* 이미지 비율 유지 */
     }
 
     .slide-text {
