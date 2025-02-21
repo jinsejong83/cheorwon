@@ -32,7 +32,7 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      background-color: #e0f7fa; /* 연한 초록색 배경 */
     }
 
     /* 로고 및 협회 소개문구 고정 */
@@ -72,17 +72,24 @@
     }
 
     /* 카테고리 박스 스타일 */
+    #categories {
+      display: flex;
+      flex-wrap: wrap; /* 화면 크기에 맞게 박스를 자동으로 줄바꿈 */
+      justify-content: space-between; /* 박스 간 간격을 일정하게 설정 */
+    }
+
     .category-box {
-      display: inline-block;
-      width: 30%; /* 한 줄에 3개씩 표시되도록 설정 */
+      width: 30%;  /* 한 줄에 3개씩 배치 */
       padding: 20px;
-      margin: 10px;
+      margin: 10px 0;
       background-color: #ffffff;
       border: 1px solid #ddd;
       text-align: center;
       font-size: 1.2rem;
       cursor: pointer;
+      box-sizing: border-box; /* 여백과 패딩이 전체 크기에 포함되도록 설정 */
     }
+
     .category-box:hover {
       background-color: #f1f1f1;
     }
@@ -95,14 +102,8 @@
     }
 
     @media (max-width: 480px) {
-      header h1 {
-        font-size: 1.5rem; /* 작은 화면에서는 글자 크기 조정 */
-      }
-      #slider {
-        max-height: 300px; /* 작은 화면에서 슬라이드 크기 줄이기 */
-      }
       .category-box {
-        width: 100%; /* 모바일에서는 카테고리 박스를 하나씩 세로로 배치 */
+        width: 30%; /* 모바일에서도 카테고리 박스를 3개씩 한 줄에 배치 */
       }
     }
   </style>
