@@ -26,28 +26,12 @@
     const db = getFirestore(app);
     const auth = getAuth(app);
 
-    let currentUser = null;
-    let isAdmin = false;
     let lastVisible = null;
     let firstVisible = null;
     let pageSize = 10;
     let prevStack = [];
 
-    // 사용자 인증 확인
-    onAuthStateChanged(auth, (user) => {
-      currentUser = user;
-      if (user) {
-        document.getElementById("feedback-form").style.display = "block";
-        if (user.email === "admin@example.com") {
-          isAdmin = true;
-        }
-      } else {
-        document.getElementById("feedback-form").style.display = "none";
-      }
-      loadFeedbacks();
-    });
-
-    // Firestore에서 건의사항 불러오기
+    // Firestore에서 건의사항 불러오기 (페이지네이션 포함)
     async function loadFeedbacks(next = false, prev = false) {
       const feedbackContainer = document.getElementById("feedback-list");
       feedbackContainer.innerHTML = "";
@@ -138,20 +122,22 @@
     }
 
     header img {
-      max-width: 300px;
+      max-width: 100%;
       height: auto;
       object-fit: contain;
-      margin: 5px auto;
       display: block;
+      margin: 0 auto;
       cursor: pointer;
     }
 
     header p {
       font-size: 1.2rem;
-      margin: 5px auto;
+      margin-top: 10px;
       text-align: center;
       line-height: 1.4;
       word-break: break-word;
+      white-space: normal;
+      padding: 5px 0;
     }
 
     @media (max-width: 768px) {
@@ -216,7 +202,10 @@
 
   <header>
     <img src="logo.png" alt="철원농생명산업진흥협회 로고" onclick="location.href='index.html'">
-    <p>철원에 기반을 둔 농기업들이 상생과 협력을 통해 철원의 새로운 미래를 만들어 갑니다!</p>
+    <p>
+      철원에 기반을 둔 농기업들이 상생과 협력을 통해<br>
+      철원의 새로운 미래를 만들어 갑니다!
+    </p>
   </header>
 
   <main>
