@@ -1,4 +1,48 @@
 <!DOCTYPE html>
+        await setDoc(participationRef, { memberId, eventId });
+      } else {
+        await updateDoc(participationRef, {});
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadParticipation);
+  </script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #e0f7fa;
+      text-align: center;
+    }
+
+    header {
+      background-color: #ffffff;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    header img {
+      max-width: 90%;
+      height: auto;
+      object-fit: contain;
+      margin: 5px auto;
+      display: block;
+      cursor: pointer;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin: 0;
+      text-align: center;
+      word-break: break-word;
+      white-space: normal;
+      padding: 0;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
       header p {
         font-size: 1.1rem;
         line-height: 1.2;
@@ -6,8 +50,7 @@
       }
     }
 
-    main {
-      max-width: 900px;
+    main { max-width: 800px;
       margin: 20px auto;
       padding: 20px;
       background-color: #ffffff;
