@@ -65,10 +65,11 @@
     }
 
     .slide img {
-      width: 100%;
+      width: 100%; /* 화면 크기에 맞춤 */
+      max-width: 100%; /* 화면보다 커지지 않도록 */
       height: auto; /* 비율 유지 */
-      object-fit: contain; /* 이미지가 가로 폭에 맞게 표시 */
-      display: block; /* 안 보이는 문제 해결 */
+      display: block; /* 공백 제거 */
+      margin: 0 auto; /* 중앙 정렬 */
     }
 
     .slide-text {
