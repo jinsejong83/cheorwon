@@ -74,8 +74,8 @@
 
     .slide img {
       width: 100%;
-      height: 100%;
-      object-fit: contain;
+      height: auto;
+      object-fit: cover;
     }
 
     .slide-text {
@@ -95,6 +95,11 @@
 
     .slide.active .slide-text {
       opacity: 1;
+    }
+
+    @keyframes slideShow {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
     #categories {
@@ -128,12 +133,6 @@
       .category-box {
         width: 32%;
         height: 40px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .category-box {
-        width: 32%;
       }
     }
 
@@ -173,18 +172,20 @@
           </div>
         </div>
       </section>
-    <section id="categories">
-      <div class="category-box" onclick="location.href='introduce.html'"><h3>협회소개</h3></div>
-      <div class="category-box" onclick="location.href='members.html'"><h3>회원사소개</h3></div>
-      <div class="category-box" onclick="location.href='participation.html'"><h3>참여도</h3></div>
-      <div class="category-box" onclick="location.href='notices.html'"><h3>공지사항</h3></div>
-      <div class="category-box" onclick="location.href='feedback.html'"><h3>건의사항</h3></div>
-      <div class="category-box" onclick="location.href='photo.html'"><h3>PHOTO</h3></div>
-      <div class="category-box" onclick="location.href='contributions.html'"><h3>기고</h3></div>
-      <div class="category-box" onclick="location.href='ai_support.html'"><h3>Ai지원(SOON)</h3></div>
-      <div class="category-box" onclick="location.href='market_research.html'"><h3>시장조사(SOON)</h3></div>
-    </section>
     </main>
+
+    <script>
+      let slides = document.querySelectorAll(".slide");
+      let currentIndex = 0;
+
+      function nextSlide() {
+        slides[currentIndex].classList.remove("active");
+        currentIndex = (currentIndex + 1) % slides.length;
+        slides[currentIndex].classList.add("active");
+      }
+
+      setInterval(nextSlide, 4000);
+    </script>
 
     <footer>
       고유번호: 851-82-00608 | 연락처: 033-455-1140 |
