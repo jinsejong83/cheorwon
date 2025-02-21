@@ -67,8 +67,8 @@
 
     .slide img {
       width: 100%;
-      max-height: 250px; /* 높이 조정 */
-      object-fit: contain; /* 이미지 비율 유지하며 크기 조절 */
+      height: auto; /* 이미지 비율 유지 */
+      object-fit: contain; /* 잘림 방지 */
     }
 
     .slide-text {
@@ -92,7 +92,7 @@
     }
 
     .category-box {
-      width: 32%;
+      width: 32%; /* 한 줄에 3개 */
       height: 50px;
       background-color: #ffffff;
       border: 1px solid #ddd;
@@ -102,7 +102,7 @@
       align-items: center;
       justify-content: center;
       box-sizing: border-box;
-      margin-bottom: 5px;
+      margin: 2px; /* 간격 최소화 */
     }
 
     .category-box h3 {
@@ -121,15 +121,13 @@
 
     @media (max-width: 768px) {
       .category-box {
-        width: 49%;
-        height: 45px;
+        width: 32%; /* 모바일에서도 한 줄에 3개 유지 */
       }
     }
 
     @media (max-width: 480px) {
       .category-box {
-        width: 49%;
-        height: 45px;
+        width: 32%; /* 작은 화면에서도 한 줄에 3개 유지 */
       }
     }
   </style>
@@ -184,7 +182,7 @@
       slider.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
 
-    setInterval(nextSlide, 3000);
+    setInterval(nextSlide, 4000); // 4초 간격으로 전환
   </script>
 
 </body>
