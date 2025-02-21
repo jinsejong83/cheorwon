@@ -54,7 +54,7 @@
 
       let q;
       if (next && lastVisible) {
-        prevStack.push(firstVisible); // 이전 페이지 저장
+        prevStack.push(firstVisible);
         q = query(collection(db, "feedback"), orderBy("timestamp", "desc"), startAfter(lastVisible), limit(pageSize));
       } else if (prev && prevStack.length > 0) {
         const prevDoc = prevStack.pop();
@@ -66,8 +66,8 @@
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
-        firstVisible = querySnapshot.docs[0]; // 첫 번째 문서 저장 (이전 페이지 기능용)
-        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]; // 마지막 문서 저장 (다음 페이지 기능용)
+        firstVisible = querySnapshot.docs[0];
+        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
       }
 
       querySnapshot.forEach((doc) => {
@@ -85,7 +85,6 @@
       });
     }
 
-    // 건의사항 작성
     async function submitFeedback(event) {
       event.preventDefault();
       const content = document.getElementById("feedback-content").value;
@@ -106,7 +105,6 @@
       loadFeedbacks();
     }
 
-    // 관리자용 처리 상태 업데이트
     async function updateStatus(feedbackId, status) {
       if (!isAdmin) return;
 
@@ -137,6 +135,34 @@
       background-color: #ffffff;
       padding: 10px 0;
       text-align: center;
+    }
+
+    header img {
+      max-width: 300px;
+      height: auto;
+      object-fit: contain;
+      margin: 5px auto;
+      display: block;
+      cursor: pointer;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin: 5px auto;
+      text-align: center;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    @media (max-width: 768px) {
+      header img {
+        max-width: 80%;
+      }
+
+      header p {
+        font-size: 1.1rem;
+        line-height: 1.3;
+      }
     }
 
     main {
