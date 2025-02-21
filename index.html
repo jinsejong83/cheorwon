@@ -52,14 +52,14 @@
       word-break: break-word;
       white-space: normal;
       padding: 0;
-      line-height: 1.4; /* 줄 간격 조정 */
+      line-height: 1.4; /* 기본 줄 간격 조정 */
     }
 
     @media (max-width: 768px) {
       header p {
         font-size: 1.1rem;
         line-height: 1.2; /* 모바일에서 자연스러운 줄 간격 */
-        white-space: pre-line;
+        display: block; /* 직접 줄바꿈 적용 */
       }
     }
 
