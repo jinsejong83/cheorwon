@@ -74,6 +74,24 @@
       color: #333;
     }
 
+    /* 표 스타일 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+
     footer {
       background-color: #f8f8f8;
       padding: 15px;
@@ -112,11 +130,44 @@
 
     <section id="history">
       <h2>협회 역대 임원 소개</h2>
-      <p>
-        - 초대 회장: 홍길동 (2023~2024)<br>
-        - 2대 회장: 이순신 (2024~2025)<br>
-        - 3대 회장: 김유신 (2025~현재)
-      </p>
+      <table>
+        <tr>
+          <th>구분</th>
+          <th>이름</th>
+        </tr>
+        <tr>
+          <td>초대 회장 (2025~)</td>
+          <td>박상운</td>
+        </tr>
+        <tr>
+          <td>부회장</td>
+          <td>이오성, 김종한</td>
+        </tr>
+        <tr>
+          <td>감사</td>
+          <td>박종호, 고병길</td>
+        </tr>
+        <tr>
+          <td>사무국장</td>
+          <td>진세종</td>
+        </tr>
+        <tr>
+          <td>교육분과위원장</td>
+          <td>김종한</td>
+        </tr>
+        <tr>
+          <td>홍보분과위원장</td>
+          <td>김용우</td>
+        </tr>
+        <tr>
+          <td>수출분과위원장</td>
+          <td>진세종</td>
+        </tr>
+        <tr>
+          <td>유통분과위원장</td>
+          <td>진세종</td>
+        </tr>
+      </table>
     </section>
   </main>
 
