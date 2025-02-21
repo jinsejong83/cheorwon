@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>철원농생명산업진흥협회</title>
   
-  <!-- Firebase Initialization -->
   <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
@@ -27,15 +26,13 @@
   </script>
   
   <style>
-    /* 기본 스타일 */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #e0f7fa; /* 연한 초록색 배경 */
+      background-color: #e0f7fa;
     }
 
-    /* 로고 및 협회 소개문구 고정 */
     header {
       background-color: #ffffff;
       padding: 20px;
@@ -43,98 +40,89 @@
     }
 
     header img {
-      max-width: 100%;  /* 화면 폭에 맞게 로고 사이즈 조정 */
-      height: auto;  /* 높이는 자동으로 조정 */
+      max-width: 100%;
+      height: auto;
       object-fit: contain;
     }
 
     header p {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       margin-top: 10px;
+      text-align: center;
     }
 
-    /* 슬라이드 이미지 스타일 (반응형) */
-    #slider {
-      width: 100%;
-      max-height: 400px;
-      margin: 20px auto;
-      position: relative;
-      overflow: hidden;
-    }
-    #slider img {
-      width: 100%;  /* 화면 너비에 맞춰 자동으로 조정 */
-      height: auto;  /* 높이는 자동 조정 */
-      object-fit: cover;
-      display: none;
-    }
-    #slider img.active {
-      display: block;
+    @media (max-width: 768px) {
+      header p {
+        font-size: 1.3rem;
+        line-height: 1.4;
+        white-space: normal;
+      }
     }
 
-    /* 카테고리 박스 스타일 */
     #categories {
       display: flex;
-      flex-wrap: wrap; /* 화면 크기에 맞게 박스를 자동으로 줄바꿈 */
-      justify-content: space-between; /* 박스 간 간격을 일정하게 설정 */
+      flex-wrap: wrap;
+      justify-content: space-evenly;
     }
 
     .category-box {
-      width: 30%;  /* 한 줄에 3개씩 배치 */
-      padding: 20px;
-      margin: 10px 0;
+      width: 30%;
+      padding: 10px;
+      margin: 0;
       background-color: #ffffff;
       border: 1px solid #ddd;
       text-align: center;
       font-size: 1.2rem;
       cursor: pointer;
-      box-sizing: border-box; /* 여백과 패딩이 전체 크기에 포함되도록 설정 */
+      box-sizing: border-box;
+      height: auto;
+    }
+
+    .category-box h3 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .category-box:hover {
       background-color: #f1f1f1;
     }
 
-    /* 모바일 반응형 스타일 */
     @media (max-width: 768px) {
       .category-box {
-        width: 30%; /* 768px 이상에서는 한 줄에 3개 */
+        width: 30%;
       }
     }
 
     @media (max-width: 480px) {
       .category-box {
-        width: 30%; /* 모바일에서도 카테고리 박스를 3개씩 한 줄에 배치 */
+        width: 30%;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header Section -->
   <header>
-    <!-- 로고 이미지 (로고 파일 경로 변경 필요) -->
     <img src="logo.png" alt="철원농생명산업진흥협회 로고">
     <p>철원에 기반을 둔 농기업들이 상생과 협력을 통해 철원의 새로운 미래를 만들어 갑니다!</p>
   </header>
 
-  <!-- Main Section -->
   <main>
-    <!-- 슬라이드쇼 -->
     <section id="slider">
       <img src="image1.jpg" class="active" alt="활동 사진 1">
       <img src="image2.jpg" alt="활동 사진 2">
       <img src="image3.jpg" alt="활동 사진 3">
     </section>
 
-    <!-- 카테고리 링크 박스 -->
     <section id="categories">
-      <div class="category-box" onclick="location.href='introduce.html'">협회소개</div>
-      <div class="category-box" onclick="location.href='members.html'">회원사소개</div>
-      <div class="category-box" onclick="location.href='photo.html'">PHOTO</div>
-      <div class="category-box" onclick="location.href='notices.html'">공지사항</div>
-      <div class="category-box" onclick="location.href='contributions.html'">기고</div>
-      <div class="category-box" onclick="location.href='participation.html'">참여도</div>
-      <div class="category-box" onclick="location.href='feedback.html'">건의사항</div>
+      <div class="category-box" onclick="location.href='introduce.html'"><h3>협회소개</h3></div>
+      <div class="category-box" onclick="location.href='members.html'"><h3>회원사소개</h3></div>
+      <div class="category-box" onclick="location.href='photo.html'"><h3>PHOTO</h3></div>
+      <div class="category-box" onclick="location.href='notices.html'"><h3>공지사항</h3></div>
+      <div class="category-box" onclick="location.href='contributions.html'"><h3>기고</h3></div>
+      <div class="category-box" onclick="location.href='participation.html'"><h3>참여도</h3></div>
+      <div class="category-box" onclick="location.href='feedback.html'"><h3>건의사항</h3></div>
     </section>
   </main>
 
@@ -154,7 +142,7 @@
       showSlide(currentIndex);
     }
 
-    setInterval(nextSlide, 3000); // 슬라이드 자동 전환 (3초마다)
+    setInterval(nextSlide, 3000);
   </script>
 
 </body>
