@@ -47,6 +47,7 @@
 
     #slider-container {
       width: 100%;
+      max-width: 100%;
       position: relative;
       overflow: hidden;
       text-align: center;
@@ -66,8 +67,8 @@
 
     .slide img {
       width: 100%;
-      max-height: 300px;
-      object-fit: cover;
+      max-height: 250px; /* 높이 조정 */
+      object-fit: contain; /* 이미지 비율 유지하며 크기 조절 */
     }
 
     .slide-text {
@@ -78,9 +79,58 @@
       background-color: rgba(0, 0, 0, 0.6);
       color: white;
       padding: 10px;
-      font-size: 1.2rem;
+      font-size: 1rem;
       text-align: center;
       border-radius: 5px;
+    }
+
+    #categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    .category-box {
+      width: 32%;
+      height: 50px;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      margin-bottom: 5px;
+    }
+
+    .category-box h3 {
+      margin: 0;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .category-box.small {
+      font-size: 0.8rem;
+    }
+
+    .category-box:hover {
+      background-color: #f1f1f1;
+    }
+
+    @media (max-width: 768px) {
+      .category-box {
+        width: 49%;
+        height: 45px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .category-box {
+        width: 49%;
+        height: 45px;
+      }
     }
   </style>
 </head>
@@ -106,10 +156,22 @@
           <div class="slide-text">제1회 철원농생명산업진흥협회 정기총회</div>
         </div>
         <div class="slide">
-          <img src="CW250211.jpg" alt="강원도 유관기관 사업설명회">
-          <div class="slide-text">강원도 유관기관 사업설명회</div>
+          <img src="CW250211.jpg" alt="회의 및 발표 진행">
+          <div class="slide-text">회의 및 발표 진행</div>
         </div>
       </div>
+    </section>
+
+    <section id="categories">
+      <div class="category-box" onclick="location.href='introduce.html'"><h3>협회소개</h3></div>
+      <div class="category-box" onclick="location.href='members.html'"><h3>회원사소개</h3></div>
+      <div class="category-box" onclick="location.href='photo.html'"><h3>PHOTO</h3></div>
+      <div class="category-box" onclick="location.href='notices.html'"><h3>공지사항</h3></div>
+      <div class="category-box" onclick="location.href='contributions.html'"><h3>기고</h3></div>
+      <div class="category-box" onclick="location.href='participation.html'"><h3>참여도</h3></div>
+      <div class="category-box" onclick="location.href='feedback.html'"><h3>건의사항</h3></div>
+      <div class="category-box small" onclick="location.href='ai_support.html'"><h3>인공지능 지원 (SOON)</h3></div>
+      <div class="category-box small" onclick="location.href='market_research.html'"><h3>시장조사 (SOON)</h3></div>
     </section>
   </main>
 
