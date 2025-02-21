@@ -5,13 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>참여도 | 철원농생명산업진흥협회</title>
 
-  <!-- Firebase SDK 추가 -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, doc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, doc, updateDoc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
-    // Firebase 설정
     const firebaseConfig = {
       apiKey: "YOUR_API_KEY",
       authDomain: "YOUR_AUTH_DOMAIN",
@@ -21,16 +19,14 @@
       appId: "YOUR_APP_ID"
     };
 
-    // Firebase 초기화
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
 
     let isAdmin = false;
 
-    // 관리자 확인
     function checkAdmin(user) {
-      if (user && user.email === "admin@example.com") { // 관리자 이메일 지정
+      if (user && user.email === "admin@example.com") {
         isAdmin = true;
       }
       loadParticipation();
@@ -40,7 +36,6 @@
       checkAdmin(user);
     });
 
-    // Firestore에서 참여도 데이터 가져오기
     async function loadParticipation() {
       const eventsSnapshot = await getDocs(collection(db, "events"));
       const membersSnapshot = await getDocs(collection(db, "members"));
@@ -67,7 +62,6 @@
       loadCheckedParticipation();
     }
 
-    // Firestore에서 참석 체크 상태 불러오기
     async function loadCheckedParticipation() {
       const participationSnapshot = await getDocs(collection(db, "participation"));
       participationSnapshot.forEach((doc) => {
@@ -75,7 +69,6 @@
         document.getElementById(`${data.memberId}_${data.eventId}`).checked = true;
       });
 
-      // 관리자일 경우 체크박스를 활성화
       if (isAdmin) {
         document.querySelectorAll("input[type=checkbox]").forEach(checkbox => {
           checkbox.disabled = false;
@@ -83,17 +76,15 @@
       }
     }
 
-    // 관리자만 참석 체크 업데이트 가능
     async function updateParticipation(memberId, eventId) {
       if (!isAdmin) return;
-
       const checkBox = document.getElementById(`${memberId}_${eventId}`);
       const participationRef = doc(db, "participation", `${memberId}_${eventId}`);
 
       if (checkBox.checked) {
         await setDoc(participationRef, { memberId, eventId });
       } else {
-        await updateDoc(participationRef, {});
+        await deleteDoc(participationRef);
       }
     }
 
@@ -109,9 +100,9 @@
       text-align: center;
     }
 
-    header {
-      background-color: #ffffff;
-      padding: 10px 0;
+    header { 
+      background-color: #ffffff; 
+      padding: 10px 0 15px;
       text-align: center;
     }
 
@@ -124,8 +115,26 @@
       cursor: pointer;
     }
 
-    main {
-      max-width: 900px;
+    header p { 
+      font-size: 1.3rem;
+      margin: 0;
+      text-align: center;
+      word-break: break-word;
+      white-space: normal;
+      padding: 0;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+      header p {
+        font-size: 1.1rem;
+        line-height: 1.2;
+        display: block;
+      }
+    }
+
+    main { 
+      max-width: 800px;
       margin: 20px auto;
       padding: 20px;
       background-color: #ffffff;
@@ -141,7 +150,6 @@
       color: #007bff;
     }
 
-    /* 표 스타일 */
     table {
       width: 100%;
       border-collapse: collapse;
