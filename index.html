@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>철원농생명산업진흥협회</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #e0f7fa;
+      overflow-x: hidden; /* 화면 넘침 방지 */
+    }
+
+    header {
+      background-color: #ffffff;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    header img {
+      max-width: 90%;
+      height: auto;
+      object-fit: contain;
+      margin: 5px auto;
+      display: block;
+      cursor: pointer; /* 로고 버튼 기능 추가 */
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin: 0;
+      text-align: center;
+      word-break: break-word;
+      white-space: normal;
+      padding: 0;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+      header p {
+        font-size: 1.1rem;
+        line-height: 1.2;
+        display: block;
+      }
+    }
+
+    #slider-container {
+      width: 100%;
+      max-width: 100%;
+      position: relative;
+      overflow: hidden; /* 이미지 넘침 방지 */
+      text-align: center;
+    }
+
+    #slider {
+      display: flex;
+      transition: transform 1s ease-in-out;
+      width: 100%;
+    }
+
+    .slide {
+      width: 100%;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .slide img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      object-fit: contain;
+    }
+
+    .slide-text {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 10px;
+      font-size: 1rem;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    #categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    .category-box {
+      width: 32%; /* 가로폭 조정하여 배경이 안 보이게 */
+      height: 30px;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      margin: 1px; /* 최소 간격 */
+    }
+
+    .category-box h3 {
+      margin: 0;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .category-box.small {
+      font-size: 0.8rem;
+    }
+
+    .category-box:hover {
+      background-color: #f1f1f1;
+    }
+
+    @media (max-width: 768px) {
+      .category-box {
+        width: 32%; /* 모바일에서도 한 줄에 3개 유지 */
+      }
+    }
+
+    footer {
+      background-color: #f8f8f8;
+      padding: 15px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="logo.png" alt="철원농생명산업진흥협회 로고" onclick="location.href='index.html'"> <!-- 로고 클릭 시 메인페이지 이동 -->
+    <p>
+      철원에 기반을 둔 농기업들이 상생과 협력을 통해<br>
+      철원의 새로운 미래를 만들어 갑니다!
+    </p>
+  </header>
+
+  <main>
+    <section id="slider-container">
+      <div id="slider">
+        <div class="slide">
+          <img src="CW241203_optimized.jpg" alt="철원농생명산업진흥협회 창립총회">
+          <div class="slide-text">철원농생명산업진흥협회 창립총회</div>
+        </div>
+        <div class="slide">
+          <img src="CW250115_optimized.jpg" alt="제1회 철원농생명산업진흥협회 정기총회">
+          <div class="slide-text">제1회 철원농생명산업진흥협회 정기총회</div>
+        </div>
+        <div class="slide">
+          <img src="CW250211_optimized.jpg" alt="유관기관 사업설명회">
+          <div class="slide-text">유관기관 사업설명회</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="categories">
+      <div class="category-box" onclick="location.href='introduce.html'"><h3>협회소개</h3></div>
+      <div class="category-box" onclick="location.href='members.html'"><h3>회원사소개</h3></div>
+      <div class="category-box" onclick="location.href='participation.html'"><h3>참여도</h3></div>
+      <div class="category-box" onclick="location.href='notices.html'"><h3>공지사항</h3></div>
+      <div class="category-box" onclick="location.href='feedback.html'"><h3>건의사항</h3></div>
+      <div class="category-box" onclick="location.href='photo.html'"><h3>PHOTO</h3></div>
+      <div class="category-box" onclick="location.href='contributions.html'"><h3>기고</h3></div>
+      <div class="category-box small" onclick="location.href='ai_support.html'"><h3>인공지능 지원 (SOON)</h3></div>
+      <div class="category-box small" onclick="location.href='market_research.html'"><h3>시장조사 (SOON)</h3></div>
+    </section>
+  </main>
+
+  <footer>
+    고유번호: 851-82-00608 | 연락처: 033-455-1140 |
+    강원특별자치도 철원군 철원읍 금강산로 23 |
+    대표자 박상운 | 이메일: navy4117@naver.com<br>
+    © 2025 사단법인철원농생명산업진흥협회. 
+    All rights reserved.(Planning and development by Mr. Jin)
+  </footer>
+
+  <script>
+    let currentIndex = 0;
+    const slider = document.getElementById("slider");
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % 3;
+      slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    setInterval(nextSlide, 4000); // 4초 간격으로 전환
+  </script>
+
+</body>
+</html>
