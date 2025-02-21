@@ -29,7 +29,7 @@
     header img {
       max-width: 90%;
       height: auto;
-      object-fit: cover; height: 100%;
+      object-fit: contain; height: 100%;
       margin: 5px auto;
       display: block;
       cursor: pointer;
@@ -79,6 +79,8 @@
     }
 
     .slide-text {
+      opacity: 1; /* 설명 문구 항상 보이게 설정 */
+      display: block;
       opacity: 1; /* 설명 문구 항상 보이게 설정 */
       display: block; /* 항상 보이도록 설정 */
       position: absolute;
@@ -135,7 +137,7 @@
     }
 
     @media (max-width: 480px) {
-      #categories { justify-content: space-between; }
+      #categories { justify-content: center; }
       .category-box {
         width: 32%;
       }
