@@ -74,8 +74,8 @@
 
     .slide img {
       width: 100%;
-      height: 100%;
-      object-fit: contain;
+      height: auto;
+      object-fit: cover;
     }
 
     .slide-text {
@@ -185,13 +185,19 @@
       <div class="category-box" onclick="location.href='market_research.html'"><h3>시장조사(SOON)</h3></div>
     </section>
     </main>
+
+    <script>
+      let slides = document.querySelectorAll(".slide");
+      let currentIndex = 0;
+
+      function nextSlide() {
+        slides[currentIndex].classList.remove("active");
+        currentIndex = (currentIndex + 1) % slides.length;
+        slides[currentIndex].classList.add("active");
+      }
+
+      setInterval(nextSlide, 4000);
+    </script>
   </div>
-  <footer>
-    고유번호: 851-82-00608 | 연락처: 033-455-1140 |
-    강원특별자치도 철원군 철원읍 금강산로 23 |
-    대표자 박상운 | 이메일: navy4117@naver.com<br>
-    © 2025 사단법인철원농생명산업진흥협회. 
-    All rights reserved.(Planning and development by Mr. Jin)
-  </footer>
 </body>
 </html>
