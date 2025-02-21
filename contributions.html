@@ -21,11 +21,11 @@
     }
 
     header img {
-      max-width: 100%;
+      max-width: 90%; /* 기존 4개 페이지와 동일하게 수정 */
       height: auto;
       object-fit: contain;
       display: block;
-      margin: 0 auto;
+      margin: 5px auto; /* 기존 스타일과 동일하게 수정 */
       cursor: pointer;
     }
 
@@ -100,6 +100,14 @@
     button:hover {
       background-color: #0056b3;
     }
+
+    footer {
+      background-color: #f8f8f8;
+      padding: 15px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+    }
   </style>
 </head>
 <body>
@@ -135,6 +143,14 @@
       <button type="submit" onclick="uploadContribution(event)">업로드</button>
     </form>
   </main>
+
+  <footer>
+    고유번호: 851-82-00608 | 연락처: 033-455-1140 |
+    강원특별자치도 철원군 철원읍 금강산로 23 |
+    대표자 박상운 | 이메일: navy4117@naver.com<br>
+    © 2025 사단법인철원농생명산업진흥협회. 
+    All rights reserved.(Planning and development by Mr. Jin)
+  </footer>
 
 </body>
 </html>
