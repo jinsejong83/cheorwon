@@ -8,8 +8,9 @@
   <!-- Firebase SDK 추가 -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, addDoc, orderBy, limit, startAfter, startAt, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js";
     import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-storage.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
     // Firebase 설정
     const firebaseConfig = {
@@ -25,13 +26,36 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const storage = getStorage(app);
+    const auth = getAuth(app);
 
-    // Firestore에서 기고문 데이터 가져오기
-    async function loadContributions() {
+    let lastVisible = null;
+    let firstVisible = null;
+    let pageSize = 10;
+    let prevStack = [];
+
+    // Firestore에서 기고문 데이터 가져오기 (페이지네이션 포함)
+    async function loadContributions(next = false, prev = false) {
       const contributionsTable = document.getElementById("contributions-table-body");
-      contributionsTable.innerHTML = ""; // 기존 데이터 초기화
+      contributionsTable.innerHTML = "";
 
-      const querySnapshot = await getDocs(collection(db, "contributions"));
+      let q;
+      if (next && lastVisible) {
+        prevStack.push(firstVisible); // 이전 페이지 저장
+        q = query(collection(db, "contributions"), orderBy("timestamp", "desc"), startAfter(lastVisible), limit(pageSize));
+      } else if (prev && prevStack.length > 0) {
+        const prevDoc = prevStack.pop();
+        q = query(collection(db, "contributions"), orderBy("timestamp", "desc"), startAt(prevDoc), limit(pageSize));
+      } else {
+        q = query(collection(db, "contributions"), orderBy("timestamp", "desc"), limit(pageSize));
+      }
+
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        firstVisible = querySnapshot.docs[0]; // 첫 번째 문서 저장 (이전 페이지 기능용)
+        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1]; // 마지막 문서 저장 (다음 페이지 기능용)
+      }
+
       querySnapshot.forEach((doc) => {
         const data = doc.data();
         const row = `
@@ -71,7 +95,11 @@
       loadContributions();
     }
 
-    document.addEventListener("DOMContentLoaded", loadContributions);
+    document.addEventListener("DOMContentLoaded", () => {
+      loadContributions();
+      document.getElementById("nextPage").addEventListener("click", () => loadContributions(true));
+      document.getElementById("prevPage").addEventListener("click", () => loadContributions(false, true));
+    });
   </script>
 
   <style>
@@ -89,15 +117,6 @@
       text-align: center;
     }
 
-    header img {
-      max-width: 90%;
-      height: auto;
-      object-fit: contain;
-      margin: 5px auto;
-      display: block;
-      cursor: pointer;
-    }
-
     main {
       max-width: 800px;
       margin: 20px auto;
@@ -108,30 +127,6 @@
       text-align: left;
     }
 
-    h2 {
-      border-bottom: 2px solid #007bff;
-      padding-bottom: 5px;
-      font-size: 1.5rem;
-      color: #007bff;
-    }
-
-    /* 파일 업로드 폼 스타일 */
-    #upload-form {
-      margin-bottom: 20px;
-      padding: 10px;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    #upload-form input,
-    #upload-form button {
-      margin: 5px;
-      padding: 8px;
-      font-size: 1rem;
-    }
-
-    /* 표 스타일 */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -149,12 +144,27 @@
       color: white;
     }
 
-    footer {
-      background-color: #f8f8f8;
-      padding: 15px;
+    #upload-form {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
       text-align: center;
+    }
+
+    button {
+      margin: 5px;
+      padding: 8px;
       font-size: 0.9rem;
-      color: #555;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
@@ -162,44 +172,34 @@
 
   <header>
     <img src="logo.png" alt="철원농생명산업진흥협회 로고" onclick="location.href='index.html'">
-    <p>
-      철원에 기반을 둔 농기업들이 상생과 협력을 통해<br>
-      철원의 새로운 미래를 만들어 갑니다!
-    </p>
+    <p>철원에 기반을 둔 농기업들이 상생과 협력을 통해 철원의 새로운 미래를 만들어 갑니다!</p>
   </header>
 
   <main>
-    <section id="contributions">
-      <h2>기고문 업로드</h2>
-      <form id="upload-form">
-        <input type="text" id="title" placeholder="기고문 제목" required>
-        <input type="file" id="file" accept=".pdf,.doc,.docx" required>
-        <button type="submit" onclick="uploadContribution(event)">업로드</button>
-      </form>
+    <h2>기고문 목록</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>제목</th>
+          <th>날짜</th>
+          <th>파일</th>
+        </tr>
+      </thead>
+      <tbody id="contributions-table-body">
+        <!-- Firestore에서 불러온 데이터가 여기에 표시됨 -->
+      </tbody>
+    </table>
+    
+    <button id="prevPage">이전 페이지</button>
+    <button id="nextPage">다음 페이지</button>
 
-      <h2>기고문 목록</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>제목</th>
-            <th>날짜</th>
-            <th>파일</th>
-          </tr>
-        </thead>
-        <tbody id="contributions-table-body">
-          <!-- Firestore에서 불러온 데이터가 여기에 표시됨 -->
-        </tbody>
-      </table>
-    </section>
+    <h2>기고문 업로드</h2>
+    <form id="upload-form">
+      <input type="text" id="title" placeholder="기고문 제목" required>
+      <input type="file" id="file" accept=".pdf,.doc,.docx" required>
+      <button type="submit" onclick="uploadContribution(event)">업로드</button>
+    </form>
   </main>
-
-  <footer>
-    고유번호: 851-82-00608 | 연락처: 033-455-1140 |
-    강원특별자치도 철원군 철원읍 금강산로 23 |
-    대표자 박상운 | 이메일: navy4117@naver.com<br>
-    © 2025 사단법인철원농생명산업진흥협회. 
-    All rights reserved.(Planning and development by Mr. Jin)
-  </footer>
 
 </body>
 </html>
