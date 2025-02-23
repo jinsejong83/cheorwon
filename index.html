@@ -43,13 +43,12 @@
     }
 
     #slider-container {
-      min-height: 300px;
-      max-height: 100%;
-      overflow: hidden; /* 페이지 버튼 숨김 방지 */
       width: 100%;
       max-width: 1200px;
-      margin: 0 auto;
+      aspect-ratio: 16 / 9;
+      margin: 20px auto;
       position: relative;
+      overflow: hidden;
       text-align: center;
     }
 
@@ -74,8 +73,8 @@
 
     .slide img {
       width: 100%;
-      height: auto;
-      object-fit: contain;
+      height: 100%;
+      object-fit: cover;
     }
 
     .slide-text {
@@ -95,6 +94,17 @@
 
     .slide.active .slide-text {
       opacity: 1;
+    }
+
+    #calendar-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 20px auto;
+      text-align: center;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     #categories {
@@ -128,13 +138,6 @@
       .category-box {
         width: 32%;
         height: 40px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      #categories { justify-content: center; gap: 5px; margin-top: 0; }
-      .category-box {
-        width: 32%;
       }
     }
 
@@ -173,6 +176,12 @@
             <div class="slide-text">유관기관 사업설명회</div>
           </div>
         </div>
+      </section>
+
+      <section id="calendar-container">
+        <h2>📅 협회 일정</h2>
+        <iframe src="https://calendar.google.com/calendar/embed?src=your-calendar-id" 
+                style="border: 0" width="100%" height="400" frameborder="0" scrolling="no"></iframe>
       </section>
     </main>
 
