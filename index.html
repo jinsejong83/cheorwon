@@ -43,13 +43,13 @@
     }
 
     #slider-container {
-      overflow: visible; /* 페이지 버튼 숨김 방지 */
+      min-height: 300px;
+      max-height: 100%;
+      overflow: hidden; /* 페이지 버튼 숨김 방지 */
       width: 100%;
       max-width: 1200px;
-      min-height: 400px;
       margin: 0 auto;
       position: relative;
-      overflow: hidden;
       text-align: center;
     }
 
@@ -167,14 +167,15 @@
           <div class="slide">
             <img src="CW250115_optimized.jpg" alt="제1회 철원농생명산업진흥협회 정기총회">
             <div class="slide-text">제1회 철원농생명산업진흥협회 정기총회</div>
-            <div class="slide-text">제1회 철원농생명산업진흥협회 정기총회</div>
           </div>
           <div class="slide">
             <img src="CW250211_optimized.jpg" alt="유관기관 사업설명회">
             <div class="slide-text">유관기관 사업설명회</div>
           </div>
         </div>
-            </main>
+      </section>
+    </main>
+
     <section id="categories">
       <div class="category-box" onclick="location.href='introduce.html'"><h3>협회소개</h3></div>
       <div class="category-box" onclick="location.href='members.html'"><h3>회원사소개</h3></div>
@@ -195,11 +196,10 @@
         slides[currentIndex].classList.remove("active");
         currentIndex = (currentIndex + 1) % slides.length;
         slides[currentIndex].classList.add("active");
+        slides[currentIndex].querySelector(".slide-text").style.opacity = "1";
       }
 
       setInterval(nextSlide, 4000);
-      slides[currentIndex].classList.add("active");
-      slides[currentIndex].querySelector(".slide-text").style.opacity = "1";
     </script>
   </div>
 
