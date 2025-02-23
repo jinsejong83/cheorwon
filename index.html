@@ -180,37 +180,33 @@
 
       <section id="calendar-container">
         <h2>📅 협회 일정</h2>
-        <iframe src="https://calendar.google.com/calendar/embed?src=your-calendar-id" 
-                style="border: 0; width: 100%; max-width: 1200px; height: 400px; margin: auto; display: block;" 
-                frameborder="0" scrolling="no"></iframe>
+        <div id="calendar"></div>
       </section>
     </main>
 
-    <section id="categories">
-      <div class="category-box" onclick="location.href='introduce.html'"><h3>협회소개</h3></div>
-      <div class="category-box" onclick="location.href='members.html'"><h3>회원사소개</h3></div>
-      <div class="category-box" onclick="location.href='participation.html'"><h3>참여도</h3></div>
-      <div class="category-box" onclick="location.href='notices.html'"><h3>공지사항</h3></div>
-      <div class="category-box" onclick="location.href='feedback.html'"><h3>건의사항</h3></div>
-      <div class="category-box" onclick="location.href='photo.html'"><h3>PHOTO</h3></div>
-      <div class="category-box" onclick="location.href='contributions.html'"><h3>기고</h3></div>
-      <div class="category-box" onclick="location.href='ai_support.html'"><h3>Ai지원(SOON)</h3></div>
-      <div class="category-box" onclick="location.href='market_research.html'"><h3>시장조사(SOON)</h3></div>
-    </section>
+    <script type="module">
+      import { getEvents } from "./firebase.js";
 
-    <script>
-      let slides = document.querySelectorAll(".slide");
-      let currentIndex = 0;
+      async function loadCalendar() {
+        const events = await getEvents();
+        const calendar = document.getElementById("calendar");
+        calendar.innerHTML = ""; // 기존 데이터 삭제
 
-      function nextSlide() {
-        slides[currentIndex].classList.remove("active");
-        currentIndex = (currentIndex + 1) % slides.length;
-        slides[currentIndex].classList.add("active");
-        slides[currentIndex].querySelector(".slide-text").style.opacity = "1";
+        events.forEach(event => {
+          const eventItem = document.createElement("div");
+          eventItem.innerHTML = `
+            <strong>${event.date} ${event.time}</strong> - ${event.title} <br>
+            📍 ${event.location} | ${event.description}
+          `;
+          eventItem.style.padding = "10px";
+          eventItem.style.borderBottom = "1px solid #ddd";
+          calendar.appendChild(eventItem);
+        });
       }
 
-      setInterval(nextSlide, 4000);
+      loadCalendar();
     </script>
+
   </div>
 
   <footer>
