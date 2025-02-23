@@ -30,6 +30,21 @@ export async function getEvents() {
   return events;
 }
 
+// Firestore에서 `test_collection` 가져오기 (테스트용)
+export async function getTestCollection() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "test_collection"));
+    let testData = [];
+    querySnapshot.forEach((doc) => {
+      testData.push({ id: doc.id, ...doc.data() });
+    });
+    console.log("테스트 컬렉션 데이터:", testData);
+    return testData;
+  } catch (error) {
+    console.error("테스트 컬렉션 데이터 가져오기 실패:", error);
+  }
+}
+
 // Firestore에 일정 추가하기 (관리자 전용 기능)
 export async function addEvent(title, date, time, location, description) {
   try {
