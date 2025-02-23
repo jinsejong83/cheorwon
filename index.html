@@ -43,6 +43,7 @@
     }
 
     #slider-container {
+      margin-bottom: 0px;
       width: 100%;
       max-width: 1200px;
       min-height: 400px;
@@ -79,6 +80,9 @@
     }
 
     .slide-text {
+      opacity: 1;
+      display: block;
+      visibility: visible;
       opacity: 1;
       display: block;
       opacity: 1; /* 설명 문구 항상 보이게 설정 */
@@ -210,6 +214,8 @@
       }
 
       setInterval(nextSlide, 4000);
+      slides[0].classList.add("active");
+      slides[0].style.display = "block";
       slides[0].classList.add("active");
     </script>
   </div>
