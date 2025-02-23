@@ -245,10 +245,14 @@
     const db = getFirestore(app);
 
     async function fetchData() {
-      const querySnapshot = await getDocs(collection(db, "test_collection"));
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
-      });
+      try {
+        const querySnapshot = await getDocs(collection(db, "test_collection"));
+        querySnapshot.forEach((doc) => {
+          console.log(doc.id, " => ", doc.data());
+        });
+      } catch (error) {
+        console.error("Firestore 데이터 가져오기 실패:", error);
+      }
     }
 
     fetchData();
