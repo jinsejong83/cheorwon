@@ -44,6 +44,8 @@
 
     #slider-container {
       margin-bottom: 0px;
+      min-height: 300px;
+      margin-bottom: 0px;
       width: 100%;
       max-width: 1200px;
       min-height: 400px;
@@ -70,6 +72,7 @@
     }
 
     .slide.active {
+      display: block; /* 롤링 슬라이드가 보이도록 수정 */
       opacity: 1;
     }
 
@@ -80,6 +83,9 @@
     }
 
     .slide-text {
+      opacity: 1;
+      display: block;
+      visibility: visible;
       opacity: 1;
       display: block;
       visibility: visible;
@@ -214,6 +220,8 @@
       }
 
       setInterval(nextSlide, 4000);
+      slides[0].classList.add("active");
+      slides[0].style.display = "block";
       slides[0].classList.add("active");
       slides[0].style.display = "block";
       slides[0].classList.add("active");
