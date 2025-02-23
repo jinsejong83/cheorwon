@@ -29,7 +29,7 @@
     header img {
       max-width: 90%;
       height: auto;
-      object-fit: contain; height: 100%; height: auto; max-height: 100%; height: 100%; height: 100%; height: 100%;
+      object-fit: contain;
       margin: 5px auto;
       display: block;
       cursor: pointer;
@@ -43,9 +43,6 @@
     }
 
     #slider-container {
-      margin-bottom: 0px;
-      min-height: 300px;
-      margin-bottom: 0px;
       width: 100%;
       max-width: 1200px;
       min-height: 400px;
@@ -57,7 +54,6 @@
 
     #slider {
       display: flex;
-      transition: opacity 1s ease-in-out;
       position: relative;
       width: 100%;
       height: 100%;
@@ -67,12 +63,11 @@
       position: absolute;
       width: 100%;
       height: 100%;
-      opacity: 1;
+      opacity: 0;
       transition: opacity 1s ease-in-out;
     }
 
     .slide.active {
-      display: block; /* 롤링 슬라이드가 보이도록 수정 */
       opacity: 1;
     }
 
@@ -83,22 +78,6 @@
     }
 
     .slide-text {
-      opacity: 1;
-      display: block;
-      visibility: visible;
-      opacity: 1;
-      display: block;
-      visibility: visible;
-      opacity: 1;
-      display: block;
-      opacity: 1; /* 설명 문구 항상 보이게 설정 */
-      display: block;
-      opacity: 1; /* 설명 문구 항상 보이게 설정 */
-      display: block;
-      opacity: 1; /* 설명 문구 항상 보이게 설정 */
-      display: block;
-      opacity: 1; /* 설명 문구 항상 보이게 설정 */
-      display: block; /* 항상 보이도록 설정 */
       position: absolute;
       bottom: 10%;
       left: 50%;
@@ -109,7 +88,7 @@
       font-size: 1rem;
       text-align: center;
       border-radius: 5px;
-      opacity: 1;
+      opacity: 0;
       transition: opacity 1s ease-in-out;
     }
 
@@ -118,7 +97,6 @@
     }
 
     #categories {
-      justify-content: space-between;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -153,8 +131,7 @@
     }
 
     @media (max-width: 480px) {
-      #categories { justify-content: space-between; gap: 5px; margin-top: 0; }
-      #categories { justify-content: center; }
+      #categories { justify-content: center; gap: 5px; margin-top: 0; }
       .category-box {
         width: 32%;
       }
@@ -196,17 +173,6 @@
           </div>
         </div>
       </section>
-    <section id="categories">
-      <div class="category-box" onclick="location.href='introduce.html'"><h3>협회소개</h3></div>
-      <div class="category-box" onclick="location.href='members.html'"><h3>회원사소개</h3></div>
-      <div class="category-box" onclick="location.href='participation.html'"><h3>참여도</h3></div>
-      <div class="category-box" onclick="location.href='notices.html'"><h3>공지사항</h3></div>
-      <div class="category-box" onclick="location.href='feedback.html'"><h3>건의사항</h3></div>
-      <div class="category-box" onclick="location.href='photo.html'"><h3>PHOTO</h3></div>
-      <div class="category-box" onclick="location.href='contributions.html'"><h3>기고</h3></div>
-      <div class="category-box" onclick="location.href='ai_support.html'"><h3>Ai지원(SOON)</h3></div>
-      <div class="category-box" onclick="location.href='market_research.html'"><h3>시장조사(SOON)</h3></div>
-    </section>
     </main>
 
     <script>
@@ -220,13 +186,9 @@
       }
 
       setInterval(nextSlide, 4000);
-      slides[0].classList.add("active");
-      slides[0].style.display = "block";
-      slides[0].classList.add("active");
-      slides[0].style.display = "block";
-      slides[0].classList.add("active");
     </script>
   </div>
+
   <footer>
     고유번호: 851-82-00608 | 연락처: 033-455-1140 |
     강원특별자치도 철원군 철원읍 금강산로 23 |
