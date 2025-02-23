@@ -227,27 +227,27 @@
   </footer>
 
   <!-- Firestore 데이터 가져오기 -->
-  <script type="module">
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+  import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCxCLhm-30UJODruR0Y-SVJtOKNliMGGM4",
-      authDomain: "cw-1-83597.firebaseapp.com",
-      projectId: "cw-1-83597",
-      storageBucket: "cw-1-83597.firebasestorage.app",
-      messagingSenderId: "189389095242",
-      appId: "1:189389095242:web:d049db8c589769028181b3",
-      measurementId: "G-BSLCCTQ0R1"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyCxCLhm-30UJODruR0Y-SVJtOKNliMGGM4",
+    authDomain: "cw-1-83597.firebaseapp.com",
+    projectId: "cw-1-83597",
+    storageBucket: "cw-1-83597.firebasestorage.app",
+    messagingSenderId: "189389095242",
+    appId: "1:189389095242:web:d049db8c589769028181b3",
+    measurementId: "G-BSLCCTQ0R1"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-    async function fetchData() {
-      console.log("📌 Firestore 데이터 요청 시작...");
-      try {
-        const querySnapshot = await getDocs(collection(db, "test_collection"));
+  function listenForData() {
+    console.log("📌 Firestore 실시간 데이터 요청 시작...");
+    try {
+      onSnapshot(collection(db, "test_collection"), (querySnapshot) => {
         console.log(`✅ Firestore에서 ${querySnapshot.size}개의 문서를 찾음.`);
         if (querySnapshot.empty) {
           console.warn("⚠️ Firestore 컬렉션이 비어 있음. 데이터를 추가하세요.");
@@ -256,13 +256,14 @@
             console.log(`📌 문서 ID: ${doc.id}, 데이터:`, doc.data());
           });
         }
-      } catch (error) {
-        console.error("❌ Firestore 데이터 가져오기 실패:", error.code, error.message);
-      }
+      });
+    } catch (error) {
+      console.error("❌ Firestore 데이터 가져오기 실패:", error.code, error.message);
     }
+  }
 
-    fetchData();
-  </script>
+  listenForData();
+</script>
 
   
 </body>
