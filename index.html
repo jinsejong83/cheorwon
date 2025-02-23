@@ -225,5 +225,34 @@
     © 2025 사단법인철원농생명산업진흥협회. 
     All rights reserved.(Planning and development by Mr. Jin)
   </footer>
+
+  <!-- Firestore 데이터 가져오기 -->
+  <script type="module">
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCxCLhm-30UJODruR0Y-SVJtOKNliMGGM4",
+      authDomain: "cw-1-83597.firebaseapp.com",
+      projectId: "cw-1-83597",
+      storageBucket: "cw-1-83597.firebasestorage.app",
+      messagingSenderId: "189389095242",
+      appId: "1:189389095242:web:d049db8c589769028181b3",
+      measurementId: "G-BSLCCTQ0R1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function fetchData() {
+      const querySnapshot = await getDocs(collection(db, "test_collection"));
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
+    }
+
+    fetchData();
+  </script>
+  
 </body>
 </html>
